@@ -23,14 +23,14 @@ def unified_loader(cfg: CfgNode, rand=True, split="train", batch_size=None) -> D
             cfg.DATA.DATASET_NAME = cfg.DATA.DATASET_NAME[:-8]
             cfg.freeze()
             
-        if cfg.DATA.DATASET_NAME == 'sdd' and split != 'train':
+        if (cfg.DATA.DATASET_NAME == 'sdd' or cfg.DATA.DATASET_NAME.startswith('cuip_sdd')) and split != 'train':
             i = cfg.DATA.PREDICT_LENGTH - 12
             cfg.defrost()
             cfg.DATA.OBSERVE_LENGTH -= i
             cfg.freeze()
             
         
-        if cfg.DATA.DATASET_NAME == "sdd" and split == "val":
+        if (cfg.DATA.DATASET_NAME == "sdd" or cfg.DATA.DATASET_NAME.startswith("cuip_sdd")) and split == "val":
             # previous methods use the test split for validation
             env_path = Path(cfg.DATA.PATH) / cfg.DATA.TASK / 'processed_data' / f"{cfg.DATA.DATASET_NAME}_test.pkl"
         else:

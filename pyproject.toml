@@ -1,0 +1,21 @@
+[project]
+name = "flowchain-iccv2023"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dill>=0.4.0",
+    "joblib>=1.5.2",
+    "matplotlib>=3.10.7",
+    "ncls>=0.0.70",
+    "numpy>=2.3.5",
+    "optuna>=4.6.0",
+    "orjson>=3.11.4",
+    "pot>=0.9.6.post1",
+    "scipy>=1.16.3",
+    "seaborn>=0.13.2",
+    "torch>=2.9.1",
+    "tqdm>=4.67.1",
+    "yacs>=0.1.8",
+]

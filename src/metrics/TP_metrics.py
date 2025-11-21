@@ -47,7 +47,7 @@ class TP_metrics(object):
         if self.dataset == 'eth':
             ade /= 0.6
             fde /= 0.6
-        if self.dataset == 'sdd':
+        if self.dataset == 'sdd' or self.dataset.startswith('cuip_sdd'):
             ade = ade * 50
             fde = fde * 50
 
