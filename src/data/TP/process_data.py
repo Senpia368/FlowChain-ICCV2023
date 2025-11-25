@@ -156,7 +156,7 @@ for desired_source in ['cuip_eth_all', 'cuip_eth_vehicle']:
                     print('At', full_data_path)
 
                     data = pd.read_csv(full_data_path, sep='\t', index_col=False, header=None)
-                    data.columns = ['frame_id', 'track_id', 'pos_x', 'pos_y']
+                    data.columns = ['frame_id', 'track_id', 'pos_x', 'pos_y','vx','vy']
                     data['frame_id'] = pd.to_numeric(data['frame_id'], downcast='integer')
                     data['track_id'] = pd.to_numeric(data['track_id'], downcast='integer')
 
@@ -191,7 +191,7 @@ for desired_source in ['cuip_eth_all', 'cuip_eth_vehicle']:
 
                         node_df = data[data['node_id'] == node_id]
 
-                        node_values = node_df[['pos_x', 'pos_y']].values
+                        node_values = node_df[['pos_x', 'pos_y','vx','vy']].values
 
                         if node_values.shape[0] < 2:
                             continue
@@ -200,8 +200,10 @@ for desired_source in ['cuip_eth_all', 'cuip_eth_vehicle']:
 
                         x = node_values[:, 0]
                         y = node_values[:, 1]
-                        vx = derivative_of(x, scene.dt)
-                        vy = derivative_of(y, scene.dt)
+                        vx = node_values[:, 2]
+                        vy = node_values[:, 3]
+                        # vx = derivative_of(x, scene.dt)
+                        # vy = derivative_of(y, scene.dt)
                         ax = derivative_of(vx, scene.dt)
                         ay = derivative_of(vy, scene.dt)
 
@@ -268,6 +270,8 @@ for desired_source in ['cuip_sdd_all', 'cuip_sdd_vehicle']:
             # apply data scale as same as PECnet
             data['x'] = data['x']/50
             data['y'] = data['y']/50
+            data['vx'] = data['vx']/50
+            data['vy'] = data['vy']/50
 
             # Mean Position
             #data['x'] = data['x'] - data['x'].mean()
@@ -290,7 +294,7 @@ for desired_source in ['cuip_sdd_all', 'cuip_sdd_vehicle']:
                             import pdb;pdb.set_trace()
                             
 
-                        node_values = node_df[['x', 'y']].values
+                        node_values = node_df[['x', 'y','vx','vy']].values
 
                         if node_values.shape[0] < 2:
                             continue
@@ -299,8 +303,10 @@ for desired_source in ['cuip_sdd_all', 'cuip_sdd_vehicle']:
 
                         x = node_values[:, 0]
                         y = node_values[:, 1]
-                        vx = derivative_of(x, scene.dt)
-                        vy = derivative_of(y, scene.dt)
+                        vx = node_values[:, 2]
+                        vy = node_values[:, 3]
+                        # vx = derivative_of(x, scene.dt)
+                        # vy = derivative_of(y, scene.dt)
                         ax = derivative_of(vx, scene.dt)
                         ay = derivative_of(vy, scene.dt)
 
